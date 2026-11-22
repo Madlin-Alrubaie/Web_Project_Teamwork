@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عالم الروايات - Novels World</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #f8f9fa, #eef7f1);
+            color: #212529;
+            direction: rtl;
+        }
+
+        /* ===== Header ===== */
+        header {
+            width: calc(100% - 40px);
+            margin: 20px auto 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.95);
+            border: 1px solid #e2e8e4;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            animation: slideDown 0.7s ease;
+        }
+
+        header img {
+            width: 75px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #27ae60;
+            transition: transform 0.4s ease;
+        }
+
+        header img:hover {
+            transform: rotate(8deg) scale(1.08);
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            margin: 0;
+            padding: 9px 13px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: white;
+            background: #27ae60;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 12px rgba(39,174,96,0.25);
+        }
+
+        nav a:focus {
+            color: #e67e22;
+            outline: 2px solid #e67e22;
+        }
+
+        nav a:visited {
+            color: #2980b9;
+        }
+
+        nav a:hover:visited {
+            color: white;
+        }
+
+        /* ===== Banner ===== */
+        .banner-img {
+            display: block;
+            width: calc(100% - 40px);
+            max-width: 1400px;
+            height: 260px;
+            margin: 20px auto;
+            object-fit: cover;
+            border-radius: 18px;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.5s ease, filter 0.5s ease;
+            animation: fadeIn 1s ease;
+        }
+
+        .banner-img:hover {
+            transform: scale(1.01);
+            filter: brightness(1.04);
+        }
+
+        /* ===== Promo ===== */
+        .promo-box {
+            width: calc(100% - 40px);
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 18px 22px;
+            background: linear-gradient(135deg, #fff8dc, #fff3cd);
+            border: 1px solid #ffeeba;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 7px 20px rgba(0,0,0,0.05);
+            animation: floatIn 0.8s ease;
+        }
+
+        .promo-img {
+            float: right;
+            margin-left: 18px;
+            width: 85px;
+            height: 85px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: transform 0.4s ease;
+        }
+
+        .promo-box:hover .promo-img {
+            transform: rotate(-5deg) scale(1.05);
+        }
+
+        /* ===== Main Layout ===== */
+        .container {
+            width: calc(100% - 40px);
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        aside {
+            flex: 0 0 25%;
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #e1e7e3;
+            box-shadow: 0 7px 20px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 115px;
+            transition: transform 0.3s ease;
+        }
+
+        aside:hover {
+            transform: translateY(-4px);
+        }
+
+        aside h3 {
+            color: #2c3e50;
+            border-right: 4px solid #27ae60;
+            padding-right: 10px;
+        }
+
+        aside li {
+            margin: 10px 0;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        aside li:hover {
+            color: #27ae60;
+            transform: translateX(-5px);
+        }
+
+        main {
+            flex: 1;
+            min-width: 0;
+        }
+
+        main > h2 {
+            margin-top: 0;
+            color: #1f3d2b;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        main > h2::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 70px;
+            height: 4px;
+            background: #27ae60;
+            border-radius: 5px;
+        }
+
+        /* ===== Books ===== */
+        .books-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        article {
+            flex: 1 1 250px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.06);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            animation: cardAppear 0.8s ease both;
+        }
+
+        article:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        article:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        article:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(39,174,96,0.16);
+        }
+
+        article figure {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        article img {
+            width: 100%;
+            height: 240px;
+            object-fit: contain;
+            background: #fafafa;
+            border-radius: 8px;
+            transition: transform 0.5s ease;
+        }
+
+        article:hover img {
+            transform: scale(1.06);
+        }
+
+        article h4 {
+            margin: 12px 0 6px;
+            color: #1a252f;
+            font-size: 17px;
+        }
+
+        article p {
+            font-size: 13px;
+            color: #555;
+            text-align: right;
+            min-height: 40px;
+            line-height: 1.8;
+        }
+
+        dl {
+            font-size: 12px;
+            text-align: right;
+            background: #f6faf7;
+            padding: 9px;
+            border-radius: 7px;
+            line-height: 1.8;
+        }
+
+        dt {
+            font-weight: bold;
+            display: inline;
+        }
+
+        dd {
+            margin: 0 0 4px 0;
+            display: inline;
+        }
+
+        .price {
+            color: #e74c3c;
+            font-size: 17px;
+        }
+
+        .btn-buy {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #27ae60, #219150);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.06);
+            box-shadow: 0 7px 15px rgba(39,174,96,0.3);
+        }
+
+        /* ===== Table ===== */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 10px;
+        }
+
+        .offers-table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .offers-table th,
+        .offers-table td {
+            border: 1px solid #dee2e6;
+            padding: 11px;
+            text-align: center;
+        }
+
+        .offers-table th {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .offers-table tbody tr {
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .offers-table tbody tr:hover {
+            background: #eefaf2;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            margin-top: 45px;
+            text-align: center;
+            border-top: 1px solid #dee2e6;
+            padding: 20px;
+            color: #6c757d;
+            background: #fff;
+        }
+
+        /* ===== Animations ===== */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== Responsive Design ===== */
+
+        /* الشاشات المتوسطة */
+        @media (max-width: 1000px) {
+            header {
+                position: relative;
+                top: 0;
+            }
+
+            .container {
+                gap: 18px;
+            }
+
+            aside {
+                flex-basis: 30%;
+                position: static;
+            }
+
+            article {
+                flex-basis: calc(50% - 10px);
+            }
+        }
+
+        /* التابلت */
+        @media (max-width: 750px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            header img {
+                width: 65px;
+                height: 65px;
+            }
+
+            .banner-img {
+                height: 210px;
+            }
+
+            .container {
+                flex-direction: column;
+            }
+
+            aside,
+            main {
+                width: 100%;
+                flex-basis: auto;
+            }
+
+            aside {
+                position: static;
+            }
+
+            article {
+                flex-basis: 100%;
+            }
+        }
+
+        /* الجوال */
+        @media (max-width: 500px) {
+            header,
+            .promo-box,
+            .container,
+            .banner-img {
+                width: calc(100% - 20px);
+            }
+
+            header {
+                padding: 12px;
+            }
+
+            nav {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            nav a {
+                width: 100%;
+                text-align: center;
+                background: #f4f7f5;
+            }
+
+            .banner-img {
+                height: 160px;
+                margin-top: 15px;
+            }
+
+            .promo-box {
+                padding: 15px;
+            }
+
+            .promo-img {
+                width: 65px;
+                height: 65px;
+            }
+
+            article img {
+                height: 220px;
+            }
+        }
+
+        /* جوال صغير جداً */
+        @media (max-width: 350px) {
+            body {
+                font-size: 13px;
+            }
+
+            .banner-img {
+                height: 135px;
+            }
+
+            .promo-img {
+                float: none;
+                display: block;
+                margin: 0 auto 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <img src="images/logo_library.jpg" alt="شعار متجر عالم الروايات">
+
+        <nav>
+            <a href="#featured">الرئيسية</a>
+            <a href="#table-sec">جدول العروض</a>
+            <a href="checkout.html" target="_blank">طلب كتاب 🛒</a>
+        </nav>
+    </header>
+
+    <picture>
+        <source media="(min-width: 850px)" srcset="images/books.jpg">
+        <source media="(min-width: 650px)" srcset="images/books.jpg">
+        <img src="images/books.jpg" alt="صورة للكتب والروايات" class="banner-img">
+    </picture>
+
+    <div class="promo-box">
+        <img src="images/logo_library.jpg" alt="عرض خاص" class="promo-img">
+        <h3>عروض خاصة للأعضاء! <u>خصم يصل إلى 20%</u></h3>
+        <p>
+            احصل على أحدث الروايات بأفضل الأسعار.
+            تقييم الكاتب الأسبوعي:
+            <b><mark>Top 1<sup>st</sup> Seller</mark></b>
+            في الوطن العربي.
+        </p>
+    </div>
+
+    <div class="container">
+
+        <aside>
+            <h3>الأقسام</h3>
+            <ul>
+                <li>روايات عالمية (24)</li>
+                <li>تنمية ذاتية (18)</li>
+                <li>علم نفس (12)</li>
+                <li>كلاسيكيات (9)</li>
+            </ul>
+
+            <h3>كيف تطلب؟</h3>
+            <ol>
+                <li>اختر كتابك المفضل.</li>
+                <li>اضغط على <i>Buy Now</i>.</li>
+                <li>أدخل بيانات التوصيل.</li>
+            </ol>
+
+            <hr>
+
+            <h4>ساعات العمل</h4>
+            <pre style="font-size: 11px;">
+السبت - الخميس:
+09:00 AM - 10:00 PM
+الجمعة: عطلة
+            </pre>
+        </aside>
+
+        <main>
+            <h2>الأكثر قراءة هذا الأسبوع</h2>
+
+            <div class="books-grid">
+
+                <article id="featured">
+                    <figure style="margin: 0;">
+                        <img src="images/book1.jpg" alt="غلاف رواية ليطمئن قلبي">
+                        <figcaption style="font-size: 11px; color: #888; margin-top: 5px;">
+                            الأكثر مبيعاً
+                        </figcaption>
+                    </figure>
+
+                    <h4>ليطمئن قلبي</h4>
+                    <p>رحلة إيمانية وعاطفية في البحث عن السلام الداخلي.</p>
+
+                    <dl>
+                        <dt>الكاتب:</dt> <dd>أدهم شرقاوي</dd><br>
+                        <dt>الصفحات:</dt> <dd>338 صفحة</dd>
+                    </dl>
+
+                    <b class="price">$14.00</b><br>
+
+                    <a href="checkout.html" target="_blank" class="btn-buy">
+                        شراء الآن 🛒
+                    </a>
+                </article>
+
+                <article>
+                    <figure style="margin: 0;">
+                        <img src="images/book2.jpg" alt="غلاف رواية الليالي البيضاء">
+                        <figcaption style="font-size: 11px; color: #888; margin-top: 5px;">
+                            رواية كلاسيكية
+                        </figcaption>
+                    </figure>
+
+                    <h4>الليالي البيضاء</h4>
+                    <p>قصة قصيرة مشحونة بالعواطف عن الحالم في مدينة سانت بطرسبرغ.</p>
+
+                    <dl>
+                        <dt>الكاتب:</dt> <dd>فيودور دوستويفسكي</dd><br>
+                        <dt>الصفحات:</dt> <dd>112 صفحة</dd>
+                    </dl>
+
+                    <b class="price">$10.50</b><br>
+
+                    <a href="checkout.html" target="_blank" class="btn-buy">
+                        شراء الآن 🛒
+                    </a>
+                </article>
+
+                <article>
+                    <figure style="margin: 0;">
+                        <img src="images/book3.jpg" alt="غلاف رواية شجرتي شجرة البرتقال الرائعة">
+                        <figcaption style="font-size: 11px; color: #888; margin-top: 5px;">
+                            رواية إنسانية
+                        </figcaption>
+                    </figure>
+
+                    <h4>شجرتي شجرة البرتقال الرائعة</h4>
+                    <p>قصة طفل برازيلي ذو مخيلة واسعة وشجرته الصديقة.</p>
+
+                    <dl>
+                        <dt>الكاتب:</dt> <dd>خوسيه ماورو دي فاسكونسيلوس</dd><br>
+                        <dt>الصفحات:</dt> <dd>192 صفحة</dd>
+                    </dl>
+
+                    <b class="price">$12.50</b><br>
+
+                    <a href="checkout.html" target="_blank" class="btn-buy">
+                        شراء الآن 🛒
+                    </a>
+                </article>
+
+            </div>
+
+            <section id="table-sec" style="margin-top: 40px;">
+                <h3>جدول العروض والحزم</h3>
+
+                <div class="table-wrapper">
+                    <table class="offers-table">
+                        <caption>باقات الشراء المتاحة</caption>
+
+                        <thead>
+                            <tr>
+                                <th rowspan="2">نوع الباقة</th>
+                                <th colspan="2">التفاصيل</th>
+                                <th rowspan="2">السعر الإجمالي</th>
+                            </tr>
+                            <tr>
+                                <th>عدد الكتب</th>
+                                <th>التوصيل</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>الباقة الفردية</td>
+                                <td>كتاب واحد</td>
+                                <td>غير مجاني</td>
+                                <td>حسب الكتاب</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="2">باقة القارئ الشغوف</td>
+                                <td>3 كتب</td>
+                                <td rowspan="2">مجاني بالكامل</td>
+                                <td>$32.00</td>
+                            </tr>
+
+                            <tr>
+                                <td>5 كتب</td>
+                                <td>$50.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <footer>
+        <p>جميع الحقوق محفوظة &copy; 2026 مكتبة عالم الروايات</p>
+        <address>تصميم: مادلين - طالبة في جامعة إب (قسم تقنية المعلومات)</address>
+         
+    </footer>
+
+</body>
+</html>

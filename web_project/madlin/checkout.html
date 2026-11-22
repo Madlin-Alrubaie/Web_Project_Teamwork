@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الطلب - عالم الروايات</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #eef7f1);
+            color: #212529;
+            margin: 0;
+            padding: 25px 15px;
+            direction: rtl;
+        }
+
+        .checkout-container {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.97);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.09);
+            border: 1px solid #e0e0e0;
+            animation: pageEnter 0.8s ease;
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid #dee2e6;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+        }
+
+        header img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #27ae60;
+            margin-bottom: 10px;
+            transition: transform 0.4s ease;
+        }
+
+        header img:hover {
+            transform: rotate(360deg) scale(1.08);
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 23px;
+            margin: 0;
+        }
+
+        fieldset {
+            border: 1px solid #ced4da;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fafafa, #f7fbf8);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        fieldset:hover {
+            box-shadow: 0 7px 18px rgba(39,174,96,0.08);
+            transform: translateY(-2px);
+        }
+
+        legend {
+            font-weight: bold;
+            color: #27ae60;
+            padding: 0 10px;
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="file"],
+        input[type="color"],
+        input[type="number"],
+        input[type="range"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cccccc;
+            border-radius: 7px;
+            font-size: 14px;
+            font-family: inherit;
+            background: #fff;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #27ae60;
+            box-shadow: 0 0 0 3px rgba(39,174,96,0.12);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        input[type="file"] {
+            padding: 8px;
+        }
+
+        input[type="color"] {
+            height: 45px;
+            padding: 4px;
+            cursor: pointer;
+        }
+
+        input[type="range"] {
+            padding: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #27ae60;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-submit,
+        .btn-reset {
+            border: none;
+            padding: 13px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #27ae60, #219150);
+            color: white;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(39,174,96,0.3);
+        }
+
+        .btn-reset {
+            background: #e74c3c;
+            color: white;
+            font-size: 14px;
+        }
+
+        .btn-reset:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #2980b9;
+            text-decoration: none;
+            font-size: 14px;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        .back-link:hover {
+            color: #27ae60;
+            transform: translateX(-4px);
+        }
+
+        @keyframes pageEnter {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* تابلت */
+        @media (max-width: 700px) {
+            .checkout-container {
+                padding: 24px;
+            }
+
+            fieldset {
+                padding: 16px;
+            }
+        }
+
+        /* جوال */
+        @media (max-width: 500px) {
+            body {
+                padding: 10px;
+            }
+
+            .checkout-container {
+                padding: 18px 14px;
+                border-radius: 14px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            header img {
+                width: 65px;
+                height: 65px;
+            }
+
+            fieldset {
+                padding: 14px;
+            }
+
+            legend {
+                font-size: 14px;
+            }
+        }
+
+        /* جوال صغير */
+        @media (max-width: 350px) {
+            body {
+                font-size: 13px;
+            }
+
+            .checkout-container {
+                padding: 13px 10px;
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"],
+            input[type="date"],
+            input[type="file"],
+            input[type="number"],
+            select,
+            textarea {
+                font-size: 13px;
+                padding: 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="checkout-container">
+
+        <header>
+            <img src="images/logo_library.jpg" alt="شعار المكتبة">
+            <h1>نموذج طلب شراء كتاب</h1>
+            <p style="font-size: 12px; color: #7f8c8d; margin-top: 7px;">
+                يرجى ملء البيانات التالية لإتمام عملية الشحن والتوصيل بنجاح
+            </p>
+        </header>
+
+        <form action="#" method="post" enctype="multipart/form-data">
+
+            <fieldset>
+                <legend>المعلومات الشخصية</legend>
+
+                <div class="form-group">
+                    <label for="fullname">
+                        الاسم الكامل: <span style="color:red;">*</span>
+                    </label>
+                    <input type="text" id="fullname" name="fullname"
+                           placeholder="أدخل اسمك الثلاثي" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني:</label>
+                    <input type="email" id="email" name="email"
+                           placeholder="example@mail.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">
+                        رقم الهاتف / الواتساب: <span style="color:red;">*</span>
+                    </label>
+                    <input type="tel" id="phone" name="phone"
+                           placeholder="77XXXXXXX" required>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>عنوان التوصيل</legend>
+
+                <div class="form-group">
+                    <label for="city">المدينة:</label>
+
+                    <input type="text" id="city" name="city"
+                           list="cities-list"
+                           placeholder="اختر أو اكتب مدينتك">
+
+                    <datalist id="cities-list">
+                        <option value="إب">
+                        <option value="صنعاء">
+                        <option value="تعز">
+                        <option value="عدن">
+                        <option value="الحديدة">
+                        <option value="ذمار">
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label for="address">
+                        العنوان التفصيلي (الشارع / الحي / الحارة):
+                    </label>
+
+                    <textarea id="address" name="address" rows="3"
+                              placeholder="اكتب عنوانك بالتفصيل هنا..."></textarea>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <legend>تفاصيل الطلب</legend>
+
+                <div class="form-group">
+                    <label for="book">
+                        اختر الكتاب المطلوب: <span style="color:red;">*</span>
+                    </label>
+
+                    <select id="book" name="book" required>
+                        <option value="" disabled selected>
+                            -- اضغط لاختيار الكتاب --
+                        </option>
+
+                        <optgroup label="الروايات الأكثر مبيعاً">
+                            <option value="b1">
+                                ليطمئن قلبي - أدهم شرقاوي ($14.00)
+                            </option>
+                            <option value="b2">
+                                الليالي البيضاء - دوستويفسكي ($10.50)
+                            </option>
+                        </optgroup>
+
+                        <optgroup label="الأدب العالمي المترجم">
+                            <option value="b3">
+                                شجرتي شجرة البرتقال الرائعة - خوسيه ماورو ($12.50)
+                            </option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="quantity">الكمية المطلوب شراءها:</label>
+                    <input type="number" id="quantity" name="quantity"
+                           min="1" max="10" value="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="delivery-date">تاريخ الاستلام المفضّل:</label>
+                    <input type="date" id="delivery-date" name="delivery_date">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="gift" name="gift">
+                    <label for="gift">هل تريد تغليف الطلب كهدية؟ 🎁</label>
+                </div>
+
+                <div class="form-group" style="margin-top: 14px;">
+                    <label for="gift-color">
+                        لون ورق التغليف:
+                    </label>
+                    <input type="color" id="gift-color" name="gift_color"
+                           value="#27ae60">
+                </div>
+
+                <div class="form-group">
+                    <label for="receipt">
+                        إرفاق إشعار أو صورة الحوالة (إن وجد):
+                    </label>
+                    <input type="file" id="receipt" name="receipt">
+                </div>
+
+                <div class="form-group">
+                    <label for="experience">
+                        ما مدى اهتمامك بالروايات الأدبية؟
+                    </label>
+                    <input type="range" id="experience" name="experience"
+                           min="1" max="5" value="5">
+                </div>
+            </fieldset>
+
+            <div class="buttons">
+                <button type="submit" class="btn-submit">
+                    تأكيد وإرسال الطلب 🛒
+                </button>
+
+                <input type="reset"
+                       value="إعادة ضبط النموذج 🔄"
+                       class="btn-reset">
+            </div>
+
+        </form>
+
+        <a href="index.html" class="back-link">
+            &larr; العودة إلى الصفحة الرئيسية للمكتبة
+        </a>
+
+    </div>
+
+</body>
+</html>
